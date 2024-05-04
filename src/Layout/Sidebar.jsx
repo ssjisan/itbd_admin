@@ -5,27 +5,47 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import { navConfig } from "./Common/Nav_config";
+import navConfig from "./Common/NavConfig";
 import { ListItem, ListItemButton, Typography } from "@mui/material";
 import Logo from "/itbd.svg";
 import Navbar from "./Navbar";
 const drawerWidth = 280;
+import "./Scrollbar.css";
 
 function Sidebar(props) {
   // eslint-disable-next-line
   const { window } = props;
+  const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   // eslint-disable-next-line
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  // Style Configuration Start //
   const linkStyle = {
     textDecoration: "none",
     fontWeight: 600,
     borderRadius: "4px",
   };
-  const { pathname } = useLocation();
+  const ListItemSx = {
+    borderRadius: "8px",
+    width: "100%",
+    height: "44px",
+    mb: "4px",
+    display: "flex",
+  };
+  const ListItemButtonSx = {
+    display: "flex",
+    justifyContent: "flex-start",
+    borderRadius: "4px",
+    width: "100%",
+    padding: "8px 16px",
+    height: "44px",
+    // ,
+  };
+
+  // Style Configuration End //
 
   const drawer = (
     <div>
@@ -41,50 +61,43 @@ function Sidebar(props) {
           <img src={Logo} alt="logo" width="48px" height="48px" />
         </Box>
         <List>
-          {navConfig({ pathname }).map((item) => (
-            <Link to={item.link} style={linkStyle} key={item.id}>
-              <ListItem
-                key={item.id}
-                disablePadding
-                sx={{
-                  background:
-                    pathname === item.link && "rgba(0 ,174, 96, 0.12)",
-                  borderRadius: "8px",
-                  width: "100%",
-                  height: "44px",
-                  mb: "4px",
-                  display: "flex",
-                }}
-              >
-                <ListItemButton
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    borderRadius: "4px",
-                    width: "100%",
-                    padding: "8px 16px",
-                    height: "44px",
-                    color: pathname === item.link ? "#00AE60" : "#918EAF",
-                  }}
-                >
-                  <ListItemIcon
+          {navConfig({ pathname }).map((section) => (
+            <Box key={section.title}>
+              <Box sx={{ p: "16px 8px 8px 12px" }}>
+                <Typography variant="overline" color="text.primary">
+                  {section.title}
+                </Typography>
+              </Box>
+              {section.items.map((item) => (
+                <Link to={item.link} style={linkStyle} key={item.title}>
+                  <ListItem
+                    disablePadding
                     sx={{
-                      minWidth: "40px",
+                      ...ListItemSx,
+                      background:
+                        pathname === item.link && "rgba(0 ,174, 96, 0.12)",
                     }}
                   >
-                    {item.icon}
-                  </ListItemIcon>
-                  <Typography
-                    sx={{
-                      fontWeight: pathname === item.link ? 600 : 500,
-                      fontSize: "14px",
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
-            </Link>
+                    <ListItemButton
+                      sx={{
+                        ...ListItemButtonSx,
+                        color: pathname === item.link ? "#00AE60" : "#918EAF",
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <Typography
+                        sx={{
+                          fontWeight: pathname === item.link ? 600 : 500,
+                          fontSize: "14px",
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+              ))}
+            </Box>
           ))}
         </List>
       </Box>
@@ -117,6 +130,7 @@ function Sidebar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              background: "#F9FAFB",
             },
           }}
         >
@@ -129,6 +143,7 @@ function Sidebar(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              background: "#F9FAFB",
               borderRightStyle: "dashed",
             },
           }}
