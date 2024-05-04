@@ -39,7 +39,7 @@ export default function Navbar({ handleDrawerToggle }) {
           onClick={handleDrawerToggle}
           sx={{ mr: 2, display: { lg: "none" } }}
         >
-          <BurgerMenu color="#031E21" />
+          <BurgerMenu color="#031E21" size={24}/>
         </IconButton>
         <IconButton
           sx={{

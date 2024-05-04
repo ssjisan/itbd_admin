@@ -9,7 +9,7 @@ export default function SupportCard() {
         alignItems: "center",
         flexDirection: forBelow676 && "column",
         background:
-          "linear-gradient(135deg, rgba(91, 228, 155, 0.2), rgba(0, 167, 111, 0.2)) rgb(255, 255, 255);",
+          "linear-gradient(135deg, rgba(91, 228, 155, 0.2), rgba(0, 167, 111, 0.2)) rgb(255, 255, 255)",
         borderRadius: "16px",
         height:"100%"
       }}
@@ -34,8 +34,8 @@ export default function SupportCard() {
         </Stack>
         <Button variant="contained">Visit Website</Button>
       </Box>
-      <Box sx={{ p: "24px", width: forBelow676 ? "380px" :"auto", }}>
-        <img src="/support.svg" alt="support" width="100%" />
+      <Box sx={{ p: "24px", width: forBelow676 ? "100%" :"auto", }}>
+        <img src="/support.png" alt="support" width="100%" />
       </Box>
     </Box>
   );
